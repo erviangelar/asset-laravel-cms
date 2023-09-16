@@ -7,7 +7,6 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Litepie\Http\Controllers\PublicController as BaseController;
 use Pages;
-use Illuminate\Support\Facades\Http;
 
 class PublicController extends BaseController
 {
@@ -32,4 +31,5 @@ class PublicController extends BaseController
             ->data(compact('data'))
             ->output();
     }
+
 }

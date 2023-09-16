@@ -13,7 +13,7 @@ return [
     | framework needs to place the application's name in a notification or
     | any other location as required by the application or its packages.
     |
-    */
+     */
 
     'name' => env('APP_NAME', 'Laravel'),
 
@@ -26,7 +26,7 @@ return [
     | running in. This may determine how you prefer to configure various
     | services the application utilizes. Set this in your ".env" file.
     |
-    */
+     */
 
     'env' => env('APP_ENV', 'production'),
 
@@ -39,7 +39,7 @@ return [
     | stack traces will be shown on every error that occurs within your
     | application. If disabled, a simple generic error page is shown.
     |
-    */
+     */
 
     'debug' => (bool) env('APP_DEBUG', false),
 
@@ -52,11 +52,11 @@ return [
     | the Artisan command line tool. You should set this to the root of
     | your application so that it is used when running Artisan tasks.
     |
-    */
+     */
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL', '/'),
+    'asset_url' => env('ASSET_URL'),
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return [
     | will be used by the PHP date and date-time functions. We have gone
     | ahead and set this to a sensible default for you out of the box.
     |
-    */
+     */
 
     'timezone' => 'UTC',
 
@@ -80,7 +80,7 @@ return [
     | by the translation service provider. You are free to set this value
     | to any of the locales which will be supported by the application.
     |
-    */
+     */
 
     'locale' => 'en',
 
@@ -93,7 +93,7 @@ return [
     | is not available. You may change the value to correspond to any of
     | the language folders that are provided through your application.
     |
-    */
+     */
 
     'fallback_locale' => 'en',
 
@@ -106,7 +106,7 @@ return [
     | data for your database seeds. For example, this will be used to get
     | localized telephone numbers, street address information and more.
     |
-    */
+     */
 
     'faker_locale' => 'en_US',
 
@@ -119,29 +119,11 @@ return [
     | to a random, 32 character string, otherwise these encrypted strings
     | will not be safe. Please do this before deploying an application!
     |
-    */
+     */
 
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Mode Driver
-    |--------------------------------------------------------------------------
-    |
-    | These configuration options determine the driver used to determine and
-    | manage Laravel's "maintenance mode" status. The "cache" driver will
-    | allow maintenance mode to be controlled across multiple machines.
-    |
-    | Supported drivers: "file", "cache"
-    |
-    */
-
-    'maintenance' => [
-        'driver' => 'file',
-        // 'store'  => 'redis',
-    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -152,7 +134,7 @@ return [
     | request to your application. Feel free to add your own services to
     | this array to grant expanded functionality to your applications.
     |
-    */
+     */
 
     'providers' => [
 
@@ -189,29 +171,22 @@ return [
         /*
          * Lavalite Framework Service Providers...
          */
-        Litepie\User\UserServiceProvider::class,
-
-        Litepie\Actions\ActionsServiceProvider::class,
-        Litepie\Log\LogServiceProvider::class,
+        Litepie\Activities\ActivitiesServiceProvider::class,
         Litepie\Filer\FilerServiceProvider::class,
         Litepie\Form\FormServiceProvider::class,
         Litepie\Hashids\HashidsServiceProvider::class,
         Litepie\Install\InstallServiceProvider::class,
-        Litepie\Master\MasterServiceProvider::class,
         Litepie\Menu\MenuServiceProvider::class,
-        Litepie\Notification\NotificationServiceProvider::class,
-        Litepie\Setting\SettingServiceProvider::class,
-        Litepie\Team\TeamServiceProvider::class,
         Litepie\Theme\ThemeServiceProvider::class,
         Litepie\Trans\TransServiceProvider::class,
-        Litepie\Role\RoleServiceProvider::class,
         Litepie\Validators\ValidatorServiceProvider::class,
         Litepie\Workflow\WorkflowServiceProvider::class,
 
         // Litecms Service Providers.
         Litecms\Block\Providers\BlockServiceProvider::class,
-        Litecms\Contact\Providers\ContactServiceProvider::class,
-        Litecms\Page\Providers\PageServiceProvider::class,
+        Litecms\Contact\ContactServiceProvider::class,
+        Litecms\Page\PageServiceProvider::class,
+        Litecms\Blog\Providers\BlogServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -233,28 +208,29 @@ return [
     | is started. However, feel free to register as many as you wish as
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
-    */
+     */
 
     'aliases' => Facade::defaultAliases()->merge([
+
+        'Activities' => Litepie\Support\Facades\Activities::class,
         'Captcha' => Litepie\Support\Facades\Captcha::class,
         'Filer' => Litepie\Support\Facades\Filer::class,
         'Form' => Litepie\Support\Facades\Form::class,
         'Hashids' => Litepie\Support\Facades\Hashids::class,
+        'Menu' => Litepie\Support\Facades\Menu::class,
         'Theme' => Litepie\Support\Facades\Theme::class,
         'Trans' => Litepie\Support\Facades\Trans::class,
         'Alerts' => Litepie\Notification\Facades\Alerts::class,
         'Workflow' => Litepie\Workflow\Workflow::class,
 
-        'Role' => Litepie\Role\Facades\Role::class,
-        'User' => Litepie\User\Facades\User::class,
-        'Settings' => Litepie\Setting\Facades\Setting::class,
-        'Menu' => \Litepie\Menu\Facades\Menu::class,
-        'Master' => Litepie\Master\Facades\Master::class,
+        'Role' => App\Facades\Role::class,
+        'User' => App\Facades\User::class,
+        'Settings' => App\Facades\Setting::class,
+        'Settings' => App\Facades\Master::class,
 
         'Block' => Litecms\Block\Facades\Block::class,
         'Contact' => Litecms\Contact\Facades\Contact::class,
         'Pages' => Litecms\Page\Facades\Pages::class,
-        'LitecmsAdverts' => Litecms\Advert\Facades\Adverts::class,
 
     ])->toArray(),
 

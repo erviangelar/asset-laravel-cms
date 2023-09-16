@@ -2,37 +2,40 @@
     "name": "lavalite/cms",
     "description": "Lavalite - The Laravel CMS.",
     "keywords": [
-        "framework", "laravel", "lavalite", "CMS", "CRM", "ERP"
+        "framework",
+        "laravel",
+        "lavalite",
+        "CMS",
+        "CRM",
+        "ERP"
     ],
     "license": "MIT",
     "type": "cms",
     "require": {
-        "php": "^8.1",
+        "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
-        "hashids/hashids": "~4.1",
-        "intervention/image": "~2.5",
-        "laravel/framework": "^10.14",
-        "laravel/sanctum": "^3.2",
-        "laravel/socialite": "~5.1",
-        "laravel/tinker": "^2.8",
-        "laravel/ui": "^4.2",
-        "lavalite/framework": "^10.1",
-        "league/fractal": "^0.20.1",
-        "litecms/block": "^10.0",
-        "litecms/contact": "^10.0",
-        "litecms/page": "^10.0",
-        "litefront/default": "^2.0",
-        "litefront/user": "^2.0",
-        "litefront/public": "^2.0"
+        "laravel/framework": "^9.2",
+        "laravel/sanctum": "^2.14.1",
+        "laravel/tinker": "^2.7",
+        "laravel/ui": "^3.3",
+    
+        "lavalite/framework": "^9.0",
+        "litefront/default": "^1.1",
+        "litefront/user": "^1.1",
+        "litefront/public": "^1.1",
+    
+        "litecms/block": "^9.0",
+        "litecms/blog": "^9.0",
+        "litecms/contact": "^9.0",
+        "litecms/page": "^9.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
-        "laravel/pint": "^1.0",
-        "laravel/sail": "^1.18",
+        "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.0",
-        "spatie/laravel-ignition": "^2.0"
+        "nunomaduro/collision": "^6.1",
+        "phpunit/phpunit": "^9.5.10",
+        "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -71,11 +74,9 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "php-http/discovery": true,
             "composer/installers": true
         }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": false
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
