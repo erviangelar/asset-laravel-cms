@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Models\User;
+use App\Models\Institution;
+use App\Models\UserRole;
+use App\Models\MenuAccess;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Litepie\Http\Response\AuthResponse;
-use Litepie\Theme\ThemeAndViews;
-use Litepie\User\Traits\RoutesAndGuards;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
@@ -23,16 +27,16 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
-     */
+    */
 
-    use ThemeAndViews, RegistersUsers, RoutesAndGuards;
+    use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'dashboard/admin';
 
     /**
      * Create a new controller instance.
@@ -41,94 +45,77 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->setGuard();
-        $this->response = resolve(AuthResponse::class);
-        $this->middleware('guest:' . guard());
-        $this->setTheme();
-    }
-
-    /**
-     * Show the form for creating a new user.
-     *
-     * @return Response
-     */
-    public function showRegistrationForm()
-    {
-        $this->canRegister();
-
-        return $this->response->setMetaTitle(__('Register'))
-            ->view('auth.register')
-            ->layout('auth')
-            ->output();
+        $this->middleware('guest');
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param array $data
-     *
+     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function validator(array $data)
+    protected function validator(array $data)
     {
-        $rules = [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:' . $this->getGuardTable(),
-            'password' => 'required|min:6|confirmed',
-        ];
-
-        if (config('recaptcha.enable')) {
-            $rules['g-recaptcha-response'] = 'required|recaptcha';
-        }
-
-        return Validator::make($data, $rules);
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param array $data
-     *
-     * @return User
+     * @param  array  $data
+     * @return \App\Models\User
      */
-    public function create(array $data)
+    protected function create(array $data)
     {
-        $this->canRegister();
-
-        $data['api_token'] = Str::random(60);
-
-        $model = $this->getAuthModel();
-        $user = $model::create($data);
-        $this->attachRoles($user);
-
+        // dd($data);
+        $currentDate = Carbon::now();
+        $newDate = $currentDate->addDays(7);
+        $formattedDate = $newDate->format('Y-m-d');
+        $institution = Institution::create([
+            'name' => $data["institution_name"],
+            'active_date' => date('Y-m-d'),
+            'end_date' => $formattedDate,
+            'status' => 'Trial'
+        ]);
+        // dd($institution);
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'first_login' => 0,
+            'institution_id' => $institution->id
+        ]);
+        $role = UserRole::create([
+            'role_id' => 1,
+            'user_id' => $user->id
+        ]);
         return $user;
     }
 
-    public function canRegister()
+    protected function registered(Request $request, $user)
     {
-        $guard = $this->getGuardRoute();
-
-        if (in_array($guard, config('auth.register.allowed'))) {
-            return true;
+        $role = UserRole::select('user_roles.role_id as role_id','roles.name as role_name')
+        ->where('user_id', $user->id)
+        ->leftJoin('roles', 'roles.id', '=', 'user_roles.role_id')
+        ->first();
+        // dd($customData);
+        $menuAccess = MenuAccess::select('menus.route as route')
+        ->where('role_id', $role->role_id)
+        ->leftJoin('menus', 'menus.id', '=', 'menu_accesses.menu_id')
+        ->where('has_access', 1)
+        ->get();
+        $access = array();
+        foreach ($menuAccess as $repository) {
+            $access[] = $repository->route;
         }
 
-        return abort(403, "You are not allowed to register as [$guard]");
-    }
-
-    public function attachRoles($user)
-    {
-        $guard = $this->getGuardRoute();
-        $roles = config('auth.register.roles.' . $guard, null);
-
-        if ($roles == null) {
-            return;
-        }
-
-        foreach ($roles as $role) {
-            $roleId = Role::findBySlug($role)->id;
-            $user->attachRole($roleId);
-        }
-
-        return true;
+        return redirect($this->redirectTo)
+        ->with(Session::put('user', $user))
+        ->with(Session::put('role', ['role_id' => $role->role_id, 'role_name' => $role->role_name]))
+        ->with(Session::put('access', $access));
     }
 }

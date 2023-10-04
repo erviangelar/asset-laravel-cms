@@ -1,26 +1,48 @@
-# Lavalite
+<p align="right">
+بِسْــــــــــــــمِ اللَّهِ الرَّحْمَنِ الرَّحِيم 
+</p>
 
-![Build Status](https://travis-ci.org/LavaLite/cms.svg?branch=5.7)
-![StyleCI](https://github.styleci.io/repos/18992087/shield?branch=5.7)
-![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+# Laravel 9 + Admin LTE
 
-This is an open source of Content Management System developed with [Laravel](http://laravel.com/) framework.
+Laravel Admin Starter project dengan AdminLTE v3.
 
-![Screen](https://raw.githubusercontent.com/LavaLite/docs/master/images/lavalite.png "Dashboards")
+## Apa aja yang ada didalam?
+- Laravel ^9.x
+- Laravel UI untuk auth ^3.4
+- Laraindo untuk localization(locale) indonesian [^1.0](https://github.com/afrizal423/laraindo)
 
-## Documentation
-Visit [Documentation](http://lavalite.org/docs) section in the website
+## Fitur apa saja?
+- Admin LTE admin theme
+- Register, Login, Forgot Password, Reset Password by default dengan Laravel UI dengan tema Admin LTE
+- User Management (update profile user)
+- ~~Role~~ **(u can custom it)**
+- Profile
 
-## System Requirements & Installation
-Visit [Installation](http://lavalite.org/docs/master/installation) section in the documentation for the details
+## Cara penggunaan
+- Simple
+    - Jalankan perintah dibawah ini untuk memulai project baru
+        ```shell
+        composer create-project afrizalmy/laravel9-adminlte:dev-master <nama_project>
+        ```
+        Ubah *nama_project* sesuai yang diinginkan.
+     - Silahkan isi yang valid di variabel env pada DB_DATABASE, DB_USERNAME, dan DB_PASSWORD dengan konfigurasi yang kamu punya
+     - Jalankan server dengan ```php artisan serve```
 
+- Advanced (tidak memakai composer)
+    - Download [repository ini](https://github.com/zaLabs02/Laravel-9-AdminLTE/archive/refs/heads/master.zip).
+    - Silahkan copy ```.env.example``` menjadi ```.env```. Contoh penggunaan command linux ```cp .env.example .env```
+    - Silahkan isi yang valid di variabel env pada DB_DATABASE, DB_USERNAME, dan DB_PASSWORD dengan konfigurasi yang kamu punya
+    - Jalankan ```php artisan key:generate``` untuk membuat unique key aplikasi
+    - Jalankan ```php artisan storage:link``` untuk membuat symlink direktori.
+    - Jalankan server dengan ```php artisan serve```
 
-## Demo
-Content Management System [https://lavalite.org/demo.html](https://lavalite.org/demo.html)
+## Terima Kasih Kepada
+- AdminLTE
+- [Taylor Ottwell](https://github.com/taylorotwell) for Laravel.
 
-Products [https://lavalite.org/products.html](https://lavalite.org/products)
+## Kontribusi
+Silahkan ke halaman issue berikan untuk penjelasan lebih lanjutnya.
+Saya menerima dengan baik kontribusi kamu untuk project starter ini.
 
-
-## License
-
-The Lavalite CMS is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+## Support Me
+Dukung aku [https://saweria.co/afrizalmy](https://saweria.co/afrizalmy)

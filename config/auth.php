@@ -11,13 +11,11 @@ return [
     | reset options for your application. You may change these defaults
     | as required, but they're a perfect start for most applications.
     |
-     */
+    */
 
     'defaults' => [
-        'guard' => 'user.web',
-        'sub' => 'web',
+        'guard' => 'web',
         'passwords' => 'users',
-        'roles' => ['user'],
     ],
 
     /*
@@ -35,44 +33,12 @@ return [
     |
     | Supported: "session"
     |
-     */
+    */
 
     'guards' => [
-        'user' => [
-            'web' => [
-                'driver' => 'session',
-                'provider' => 'users',
-            ],
-
-            'api' => [
-                'driver' => 'sanctum',
-                'provider' => 'users',
-            ],
-        ],
-
-        'admin' => [
-            'web' => [
-                'driver' => 'session',
-                'provider' => 'users',
-            ],
-
-            'api' => [
-                'driver' => 'sanctum',
-                'provider' => 'users',
-            ],
-        ],
-        'client' => [
-            'web' => [
-                'driver' => 'session',
-                'provider' => 'clients',
-            ],
-
-            'api' => [
-                'driver' => 'sanctum',
-                'provider' => 'clients',
-                'hash' => false,
-            ],
-
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
         ],
     ],
 
@@ -91,7 +57,7 @@ return [
     |
     | Supported: "database", "eloquent"
     |
-     */
+    */
 
     'providers' => [
         'users' => [
@@ -99,10 +65,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        'clients' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Client::class,
-        ],
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
     ],
 
     /*
@@ -118,7 +84,7 @@ return [
     | considered valid. This security feature keeps tokens short-lived so
     | they have less time to be guessed. You may change this as needed.
     |
-     */
+    */
 
     'passwords' => [
         'users' => [
@@ -138,25 +104,8 @@ return [
     | times out and the user is prompted to re-enter their password via the
     | confirmation screen. By default, the timeout lasts for three hours.
     |
-     */
+    */
 
     'password_timeout' => 10800,
-    /*
-    |--------------------------------------------------------------------------
-    | Register User
-    |--------------------------------------------------------------------------
-    | User with following roles are  allowed to register online.
-    | other user can be created by higher levele of users in the organization
-    | Second array contains roles to be attached while creating a user online
-     */
-
-    'register' => [
-        'allowed' => ['client', 'user'],
-        'roles' => [
-            'client' => null,
-            'user' => ['user'],
-            'admin' => ['admin'],
-        ],
-    ],
 
 ];

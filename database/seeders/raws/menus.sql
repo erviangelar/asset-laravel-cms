@@ -1,0 +1,18 @@
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Dashboard', 'home', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Administrator', '', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Create Account', 'user.create', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('User Account', 'user.index', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Institution', 'institution.index', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Role', 'role.index', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Menu Access', 'menu-access.index', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Master Data', '', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Asset Type', 'asset-type.index', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Vendor', 'vendor.index', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Location', 'location.index', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Budgeting', '', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Annual Budget', 'annual-budget.index', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Allocation Budget', 'allocation-budget.index', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Asset', '', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Asset', 'asset.index', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Asset Request', 'asset-request.index', NULL, NULL);
+INSERT INTO `menus` (`id`,`name`, `route`, `created_at`, `updated_at`)VALUES('Asset Purchase', 'asset-purchase.index', NULL, NULL);

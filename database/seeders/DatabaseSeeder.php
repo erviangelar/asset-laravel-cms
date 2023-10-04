@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Litecms\Block\Seeds\BlockTableSeeder;
-use Litecms\Blog\Seeds\BlogTableSeeder;
-use Litecms\Contact\Seeds\ContactTableSeeder;
-use Litecms\Page\Seeds\PageTableSeeder;
+use Database\seeders\RolesSeeder;
+use Database\seeders\UsersSeeder;
+use Database\seeders\MenusSeeder;
+use Database\seeders\InstitutionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,16 +18,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(MenuTableSeeder::class);
-        $this->call(UserTableSeeder::class);
-        $this->call(RoleTableSeeder::class);
-        $this->call(TeamTableSeeder::class);
-        $this->call(ClientTableSeeder::class);
-        $this->call(SettingTableSeeder::class);
-
-        $this->call(BlockTableSeeder::class);
-        $this->call(BlogTableSeeder::class);
-        $this->call(ContactTableSeeder::class);
-        $this->call(PageTableSeeder::class);
+        // \App\Models\User::factory(10)->create();
+        $this->call(RolesSeeder::class);
+        $this->call(UsersSeeder::class);
+        $this->call(MenusSeeder::class);
+        $this->call(InstitutionSeeder::class);
     }
 }

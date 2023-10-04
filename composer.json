@@ -1,33 +1,23 @@
 {
-    "name": "lavalite/cms",
-    "description": "Lavalite - The Laravel CMS.",
-    "keywords": [
-        "framework",
-        "laravel",
-        "lavalite",
-        "CMS",
-        "CRM",
-        "ERP"
-    ],
+    "name": "afrizalmy/laravel9-adminlte",
+    "type": "project",
+    "description": "Laravel Admin Starter project dengan AdminLTE v3.",
+    "keywords": ["framework", "laravel","adminlte"],
     "license": "MIT",
-    "type": "cms",
     "require": {
         "php": "^8.0.2",
+        "afrizalmy/laraindo": "^1.0",
+        "enyo/dropzone": "^5.9",
+        "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
+        "laracasts/flash": "^3.2",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "laravel/ui": "^3.3",
-    
-        "lavalite/framework": "^9.0",
-        "litefront/default": "^1.1",
-        "litefront/user": "^1.1",
-        "litefront/public": "^1.1",
-    
-        "litecms/block": "^9.0",
-        "litecms/blog": "^9.0",
-        "litecms/contact": "^9.0",
-        "litecms/page": "^9.0"
+        "laravel/ui": "^3.4",
+        "milon/barcode": "^10.0",
+        "spatie/laravel-activitylog": "^4.7",
+        "yoeunes/toastr": "^2.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -61,7 +51,21 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
+            "@php artisan key:generate --ansi",
+            "php artisan storage:link",
+            "composer clear-all"
+        ],
+        "clear-all": [
+            "@php artisan optimize:clear",
+            "composer dumpautoload -o"
+        ],
+        "cache-all": [
+            "@php artisan config:cache",
+            "@php artisan route:cache"
+        ],
+        "cc": [
+            "composer clear-all",
+            "composer cache-all"
         ]
     },
     "extra": {
@@ -72,10 +76,7 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true,
-        "allow-plugins": {
-            "composer/installers": true
-        }
+        "sort-packages": true
     },
     "minimum-stability": "dev",
     "prefer-stable": true

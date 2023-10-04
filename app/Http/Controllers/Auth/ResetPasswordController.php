@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Litepie\Http\Response\AuthResponse;
-use Litepie\User\Traits\Auth\ResetsPasswords;
-use Litepie\Theme\ThemeAndViews;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {
@@ -21,7 +19,7 @@ class ResetPasswordController extends Controller
     |
     */
 
-    use ResetsPasswords, ThemeAndViews;
+    use ResetsPasswords;
 
     /**
      * Where to redirect users after resetting their password.
@@ -29,15 +27,4 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->response = resolve(AuthResponse::class);
-        $this->middleware('guest:'.guard());
-        $this->setTheme();
-    }
 }
